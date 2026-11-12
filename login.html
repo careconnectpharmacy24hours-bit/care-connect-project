@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Connect | Login</title>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("kqrlnuI3eAYaY_mfg");
+        })();
+    </script>
+
+    <style>
+        body {
+            margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;
+            background-color: #000; font-family: Arial, sans-serif;
+            position: relative; z-index: 1;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('image/logo.png'); 
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .login-box {
+            background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            width: 100%; max-width: 400px; text-align: center;
+        }
+        .login-box h1 { color: #007bff; margin-bottom: 25px; font-size: 26px; }
+        .login-input {
+            width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; 
+            border-radius: 8px; box-sizing: border-box; font-size: 15px;
+        }
+        .login-btn {
+            width: 100%; padding: 15px; background-color: #007bff; color: white;
+            border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;
+        }
+        .toggle-link { margin-top: 20px; font-size: 14px; color: #555; }
+        .toggle-link a { color: #007bff; text-decoration: none; font-weight: bold; cursor: pointer; }
+        .extra-fields { display: none; } 
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <h1 id="form-title">Welcome to Care Connect</h1>
+        
+        <form onsubmit="handleAuth(event)">
+            <div id="signup-fields" class="extra-fields">
+                <input type="text" id="login-name" class="login-input" placeholder="Full Name">
+                <input type="tel" id="login-phone" class="login-input" placeholder="Phone Number">
+                <input type="text" id="login-address" class="login-input" placeholder="Home Address">
+            </div>
+
+            <input type="email" id="login-email" class="login-input" placeholder="Email Address" required>
+            <input type="password" id="login-password" class="login-input" placeholder="Password" required>
+            
+            <button type="submit" id="action-btn" class="login-btn">Login</button>
+        </form>
+
+        <p class="toggle-link" id="toggle-text">
+            Don't have an account? <a onclick="toggleMode()">Create a new account</a>
+        </p>
+    </div>
+
+    <script>
+        let isLogin = true;
+
+        function toggleMode() {
+            isLogin = !isLogin;
+            const signupFields = document.getElementById("signup-fields");
+            
+            if (isLogin) {
+                document.getElementById("form-title").innerText = "Welcome to Care Connect";
+                document.getElementById("action-btn").innerText = "Login";
+                document.getElementById("toggle-text").innerHTML = 'Don\'t have an account? <a onclick="toggleMode()">Create a new account</a>';
+                signupFields.style.display = "none";
+                document.getElementById("login-name").required = false;
+            } else {
+                document.getElementById("form-title").innerText = "Create New Account";
+                document.getElementById("action-btn").innerText = "Sign Up";
+                document.getElementById("toggle-text").innerHTML = 'Already have an account? <a onclick="toggleMode()">Log in here</a>';
+                signupFields.style.display = "block";
+                document.getElementById("login-name").required = true;
+            }
+        }
+
+        function handleAuth(event) {
+            event.preventDefault(); 
+            const email = document.getElementById("login-email").value;
+            
+            if (!isLogin) {
+                const name = document.getElementById("login-name").value;
+                const phone = document.getElementById("login-phone").value;
+                const address = document.getElementById("login-address").value;
+
+                localStorage.setItem("careConnectName", name);
+                localStorage.setItem("careConnectEmail", email);
+                localStorage.setItem("careConnectPhone", phone !== "" ? phone : "Not provided");
+                localStorage.setItem("careConnectAddress", address !== "" ? address : "Not provided");
+
+                document.getElementById("action-btn").innerText = "Sending Email...";
+                
+                let templateParams = { 
+                    to_name: name, 
+                    to_email: email, 
+                    message: "Welcome to Care Connect!" 
+                };
+
+                emailjs.send('service_m2xgc8f', 'template_d05gixq', templateParams)
+                    .then(function() {
+                        alert("Account created! A welcome email has been sent to " + email);
+                        window.location.href = "home.html";
+                    }, function(error) {
+                        console.error("EmailJS Error:", error);
+                        alert("Account created, but email failed to send. Check console for error.");
+                        window.location.href = "home.html";
+                    });
+            } else {
+                localStorage.setItem("careConnectEmail", email);
+                window.location.href = "home.html";
+            }
+        }
+    </script>
+</body>
+</html>

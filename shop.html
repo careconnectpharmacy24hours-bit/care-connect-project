@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Connect | Medicines</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .shop-container {
+            max-width: 1200px; margin: 30px auto; padding: 0 20px;
+        }
+        .shop-header {
+            text-align: center; margin-bottom: 25px;
+        }
+        .shop-header h2 { color: #007bff; font-size: 32px; margin-bottom: 10px; }
+        .shop-header p { color: #555; font-size: 16px; margin-bottom: 20px; }
+        
+        /* Live Search Bar Styling */
+        .shop-search-box {
+            display: flex; justify-content: center; margin-bottom: 30px;
+        }
+        .shop-search-input {
+            width: 100%; max-width: 500px; padding: 12px 20px; font-size: 16px;
+            border: 1px solid #ccc; border-radius: 8px 0 0 8px; outline: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .shop-search-btn {
+            padding: 0 25px; background-color: #007bff; color: white; border: none;
+            font-size: 16px; font-weight: bold; border-radius: 0 8px 8px 0; cursor: pointer;
+        }
+        .shop-search-btn:hover { background-color: #0056b3; }
+
+        .medicine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .medicine-card {
+            background: white; border-radius: 10px; padding: 20px; text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: transform 0.2s;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .medicine-card:hover { transform: translateY(-5px); }
+        .med-icon { font-size: 45px; margin-bottom: 15px; }
+        .med-name { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 8px; }
+        .med-category { font-size: 13px; color: #777; margin-bottom: 10px; background: #f0f2f5; padding: 3px 8px; border-radius: 4px; display: inline-block; }
+        .med-price { font-size: 18px; color: #28a745; font-weight: bold; margin-bottom: 15px; }
+        .add-btn {
+            background-color: #007bff; color: white; border: none; padding: 10px;
+            border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%;
+        }
+        .add-btn:hover { background-color: #0056b3; }
+        .no-results { text-align: center; grid-column: 1 / -1; color: #777; font-size: 18px; padding: 40px; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu with Logo -->
+   <nav class="navbar">
+        <a href="home.html" class="nav-logo" style="display: flex; align-items: center; text-decoration: none; color: white;">
+            <img src="image/logo2.png" alt="Care Connect Logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 12px;">
+            <span style="font-weight: bold; font-size: 20px; letter-spacing: 0.5px;">CARE CONNECT</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="shop.html">Medicines</a></li>
+            <li><a href="scanner.html">AI Scanner</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="account.html">My Account</a></li>
+        </ul>
+    </nav>
+
+    <!-- Shop Content -->
+    <div class="shop-container">
+        <div class="shop-header">
+            <h2>Available Medicines & Supplies</h2>
+            <p>Browse or search our complete catalog of 30+ healthcare essentials.</p>
+            
+            <!-- Live Search Bar -->
+            <div class="shop-search-box">
+                <input type="text" id="search-input" class="shop-search-input" placeholder="Search tablets, syrups, vitamins..." onkeyup="filterMedicines()">
+                <button class="shop-search-btn" onclick="filterMedicines()">Search</button>
+            </div>
+        </div>
+
+        <div id="medicine-grid" class="medicine-grid">
+            <!-- JavaScript dynamically injects items here -->
+        </div>
+    </div>
+
+    <script>
+        // Array containing 30+ medicines with icons and prices
+        const medicines = [
+            { name: "Paracetamol 500mg", category: "Tablets", price: 30, icon: "💊" },
+            { name: "Ibuprofen 400mg", category: "Tablets", price: 45, icon: "💊" },
+            { name: "Amoxicillin 250mg", category: "Tablets", price: 120, icon: "💊" },
+            { name: "Aspirin 75mg", category: "Tablets", price: 25, icon: "💊" },
+            { name: "Cetirizine 10mg", category: "Tablets", price: 20, icon: "💊" },
+            { name: "Pantoprazole 40mg", category: "Tablets", price: 55, icon: "💊" },
+            { name: "Azithromycin 500mg", category: "Tablets", price: 150, icon: "💊" },
+            { name: "Metformin 500mg", category: "Tablets", price: 40, icon: "💊" },
+            { name: "Amlodipine 5mg", category: "Tablets", price: 35, icon: "💊" },
+            { name: "Montelukast 10mg", category: "Tablets", price: 90, icon: "💊" },
+
+            { name: "Cough Syrup 100ml", category: "Syrups", price: 85, icon: "🧴" },
+            { name: "Antacid Liquid 200ml", category: "Syrups", price: 110, icon: "🧴" },
+            { name: "Paracetamol Suspension", category: "Syrups", price: 60, icon: "🧴" },
+            { name: "Multivitamin Syrup", category: "Syrups", price: 140, icon: "🧴" },
+            { name: "Cough & Cold Syrup", category: "Syrups", price: 95, icon: "🧴" },
+            { name: "Ayurvedic Liver Tonic", category: "Syrups", price: 160, icon: "🧴" },
+
+            { name: "Vitamin C 500mg", category: "Vitamins", price: 180, icon: "🌿" },
+            { name: "Vitamin D3 Capsules", category: "Vitamins", price: 220, icon: "🌿" },
+            { name: "Multivitamin Tablets", category: "Vitamins", price: 250, icon: "🌿" },
+            { name: "Calcium + B12", category: "Vitamins", price: 190, icon: "🌿" },
+            { name: "Omega-3 Fish Oil", category: "Vitamins", price: 350, icon: "🌿" },
+            { name: "Zinc Supplements", category: "Vitamins", price: 150, icon: "🌿" },
+
+            { name: "Antiseptic Cream 50g", category: "First Aid", price: 75, icon: "🩹" },
+            { name: "Adhesive Bandages (Box)", category: "First Aid", price: 50, icon: "🩹" },
+            { name: "Medical Gauze Roll", category: "First Aid", price: 40, icon: "🩹" },
+            { name: "Pain Relief Spray", category: "First Aid", price: 190, icon: "🩹" },
+            { name: "Hydrogen Peroxide 100ml", category: "First Aid", price: 45, icon: "🩹" },
+            { name: "Elastic Crepe Bandage", category: "First Aid", price: 90, icon: "🩹" },
+
+            { name: "Digital Thermometer", category: "Medical Supplies", price: 250, icon: "🩺" },
+            { name: "Blood Pressure Monitor", category: "Medical Supplies", price: 1450, icon: "🩺" },
+            { name: "Pulse Oximeter", category: "Medical Supplies", price: 799, icon: "🩺" },
+            { name: "N95 Face Masks (Pack of 5)", category: "Medical Supplies", price: 120, icon: "🩺" },
+            { name: "First Aid Storage Box", category: "Medical Supplies", price: 350, icon: "🩺" }
+        ];
+
+        // Function to render items (supports filtering by search query)
+        function loadShopItems(filteredList) {
+            let grid = document.getElementById("medicine-grid");
+            grid.innerHTML = "";
+
+            if (filteredList.length === 0) {
+                grid.innerHTML = `<div class="no-results">No medicines found matching your search.</div>`;
+                return;
+            }
+
+            filteredList.forEach((med) => {
+                let card = document.createElement("div");
+                card.className = "medicine-card";
+                card.innerHTML = `
+                    <div>
+                        <div class="med-icon">${med.icon}</div>
+                        <div class="med-name">${med.name}</div>
+                        <span class="med-category">${med.category}</span>
+                    </div>
+                    <div>
+                        <div class="med-price">₹${med.price.toFixed(2)}</div>
+                        <button class="add-btn" onclick="addToCart('${med.name}', ${med.price})">Add to Cart</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Live Search Filter Function
+        function filterMedicines() {
+            let query = document.getElementById("search-input").value.toLowerCase();
+            let matchedItems = medicines.filter(med => 
+                med.name.toLowerCase().includes(query) || 
+                med.category.toLowerCase().includes(query)
+            );
+            loadShopItems(matchedItems);
+        }
+
+        // Add to Cart functionality
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem('careConnectCart')) || [];
+            cart.push({ name: name, price: price });
+            localStorage.setItem('careConnectCart', JSON.stringify(cart));
+            alert(name + " has been added to your cart!");
+        }
+
+        // Load all items when the page opens
+        window.onload = function() {
+            loadShopItems(medicines);
+        };
+    </script>
+
+</body>
+</html>

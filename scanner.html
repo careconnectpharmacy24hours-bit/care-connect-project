@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Connect | AI Scanner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <nav class="navbar">
+        <a href="home.html" class="nav-logo" style="display: flex; align-items: center; text-decoration: none; color: white;">
+            <img src="image/logo2.png" alt="Care Connect Logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 12px;">
+            <span style="font-weight: bold; font-size: 20px; letter-spacing: 0.5px;">CARE CONNECT</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="shop.html">Medicines</a></li>
+            <li><a href="scanner.html">AI Scanner</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="account.html">My Account</a></li>
+        </ul>
+    </nav>
+    <div class="scanner-container">
+        <h2>AI Medical Scanner</h2>
+        <p>Describe your symptoms or upload a prescription, and our AI will assist you.</p>
+        
+        <div class="input-section">
+            <h3>1. Describe Symptoms</h3>
+            <textarea id="symptoms-input" placeholder="Example: I have a mild headache and a sore throat..."></textarea>
+        </div>
+
+        <div class="input-section">
+            <h3>2. Or Upload Prescription</h3>
+            <input type="file" id="prescription-upload" accept="image/*">
+        </div>
+
+        <button class="btn-primary analyze-btn" onclick="analyzeData()">Analyze with AI</button>
+
+        <div id="ai-results-box" class="results-box" style="display: none;">
+            <h3>AI Analysis:</h3>
+            <p id="ai-output">Loading analysis...</p>
+        </div>
+    </div>
+       <script>
+        // Helper function to convert the image file into a format the AI can read
+        function fileToGenerativePart(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve({
+                    inlineData: { data: reader.result.split(',')[1], mimeType: file.type }
+                });
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function analyzeData() {
+            const symptoms = document.getElementById("symptoms-input").value;
+            const fileInput = document.getElementById("prescription-upload");
+            const resultsBox = document.getElementById("ai-results-box");
+            const outputText = document.getElementById("ai-output");
+
+            // Check if they entered text OR uploaded an image
+            if (symptoms.trim() === "" && fileInput.files.length === 0) {
+                alert("Please describe your symptoms or upload a prescription!");
+                return;
+            }
+
+            resultsBox.style.display = "block";
+            outputText.innerText = "Analyzing your data... Please wait.";
+
+            // 1. PASTE YOUR "AQ." KEY HERE
+            const apiKey = "AQ.Ab8RN6Ib8aJMCydRHtQX7QBPYDRbOApudGbFDa0cfsqZ71mpLw"; 
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${apiKey}`;
+            
+            // 2. Prepare the AI instructions based on what the user provided
+            let prompt = "You are a helpful pharmacy AI assistant for CARE CONNECT. ";
+            let partsArray = [];
+
+            if (fileInput.files.length > 0) {
+                // If they uploaded an image, ask the AI to read the prescription
+                prompt += "Read this prescription image. List the medicines clearly and give a brief warning to always consult a real doctor.";
+                const imagePart = await fileToGenerativePart(fileInput.files[0]);
+                partsArray.push({ text: prompt });
+                partsArray.push(imagePart); // Attach the image to the request
+            } else {
+                // If they only typed text, analyze the symptoms
+                prompt += `A user says: '${symptoms}'. Give a brief, friendly 2-sentence medical suggestion, recommend a common over-the-counter medicine category, and always remind them to consult a doctor.`;
+                partsArray.push({ text: prompt });
+            }
+
+            const requestBody = {
+                contents: [{ parts: partsArray }]
+            };
+
+            // 3. Send the request to Google
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(requestBody)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    if (data.candidates && data.candidates.length > 0) {
+                        outputText.innerText = data.candidates[0].content.parts[0].text;
+                    } else {
+                        outputText.innerText = "The AI blocked the response. Try a different input.";
+                    }
+                } else {
+                    outputText.innerText = "Google Server Error: " + (data.error ? data.error.message : "Unknown error");
+                }
+            } catch (error) {
+                outputText.innerText = "Network Error: Could not connect to Google. Check your internet.";
+                console.error(error);
+            }
+        }
+    </script>
+      </body>
+</html>

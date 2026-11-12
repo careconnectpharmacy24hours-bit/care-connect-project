@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Connect | About Us</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .about-container {
+            max-width: 1200px; margin: 40px auto; padding: 0 20px;
+        }
+        .about-header {
+            text-align: center; margin-bottom: 40px;
+        }
+        .about-header h1 { color: #007bff; font-size: 36px; margin-bottom: 15px; }
+        .about-header p { color: #555; font-size: 18px; line-height: 1.6; max-width: 800px; margin: 0 auto; }
+        
+        .contact-wrapper {
+            display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;
+        }
+        
+        /* Contact Information Cards */
+        .contact-info {
+            flex: 1; min-width: 300px; background: white; padding: 30px; 
+            border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .contact-info h3 { color: #333; font-size: 24px; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #007bff; padding-bottom: 10px; display: inline-block;}
+        .info-item { display: flex; align-items: flex-start; margin-bottom: 20px; }
+        .info-icon { font-size: 24px; margin-right: 15px; }
+        .info-text h4 { margin: 0 0 5px 0; color: #007bff; font-size: 16px; }
+        .info-text p { margin: 0; color: #555; font-size: 15px; line-height: 1.5; }
+
+        /* Contact Message Form */
+        .contact-form {
+            flex: 1; min-width: 300px; background: white; padding: 30px; 
+            border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .contact-form h3 { color: #333; margin-top: 0; margin-bottom: 20px; }
+        .form-input {
+            width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd;
+            border-radius: 8px; box-sizing: border-box; font-size: 15px;
+        }
+        .submit-btn {
+            width: 100%; padding: 15px; background-color: #007bff; color: white;
+            border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;
+        }
+        .submit-btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <!-- Updated Navigation Menu with About Us -->
+    <nav class="navbar">
+        <a href="home.html" class="nav-logo" style="display: flex; align-items: center; text-decoration: none; color: white;">
+            <img src="image/logo2.png" alt="Care Connect Logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 12px;">
+            <span style="font-weight: bold; font-size: 20px; letter-spacing: 0.5px;">CARE CONNECT</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="shop.html">Medicines</a></li>
+            <li><a href="scanner.html">AI Scanner</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="account.html">My Account</a></li>
+        </ul>
+    </nav>
+
+    <div class="about-container">
+        
+        <!-- Mission Statement -->
+        <div class="about-header">
+            <h1>About Care Connect</h1>
+            <p>At Care Connect, our mission is to make healthcare accessible, affordable, and completely seamless. We combine advanced AI technology with a comprehensive 24-hour digital pharmacy to bring essential medicines and intelligent health insights directly to your fingertips.</p>
+        </div>
+
+        <div class="contact-wrapper">
+            
+            <!-- Contact Details -->
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-text">
+                        <h4>Our Location</h4>
+                        <p>PINCODE 530047, GAJUWAKA<br>VISAKHAPATNAM</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">📞</div>
+                    <div class="info-text">
+                        <h4>Phone Number</h4>
+                        <p>9490485829</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">✉️</div>
+                    <div class="info-text">
+                        <h4>Email Address</h4>
+                        <p>careconnectpharmacy24hours@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">🕒</div>
+                    <div class="info-text">
+                        <h4>Working Hours</h4>
+                        <p>24/7 Digital Support<br>Always Open for You</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h3>Send us a Message</h3>
+                <form onsubmit="sendMessage(event)">
+                    <input type="text" id="contact-name" class="form-input" placeholder="Your Name" required>
+                    <input type="email" id="contact-email" class="form-input" placeholder="Your Email" required>
+                    <textarea id="contact-msg" class="form-input" rows="5" placeholder="How can we help you?" required></textarea>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function sendMessage(event) {
+            event.preventDefault();
+            // A simple visual alert for the college project to show the form works
+            alert("Thank you for reaching out! Your message has been sent to the Care Connect team.");
+            document.getElementById("contact-name").value = "";
+            document.getElementById("contact-email").value = "";
+            document.getElementById("contact-msg").value = "";
+        }
+    </script>
+
+</body>
+</html>

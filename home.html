@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Connect | Home</title>
+    <!-- Links to your main style file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation Menu -->
+        <nav class="navbar">
+        <a href="home.html" class="nav-logo" style="display: flex; align-items: center; text-decoration: none; color: white;">
+            <img src="image/logo2.png" alt="Care Connect Logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 12px;">
+            <span style="font-weight: bold; font-size: 20px; letter-spacing: 0.5px;">CARE CONNECT</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="shop.html">Medicines</a></li>
+            <li><a href="scanner.html">AI Scanner</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="account.html">My Account</a></li>
+        </ul>
+    </nav>
+    <!-- Main Content -->
+    <div class="home-container">
+        
+        <!-- Welcome Banner & Search -->
+        <div class="welcome-banner">
+            <h1 id="user-greeting">Welcome to Care Connect</h1>
+            <p>Search for medicines or upload a prescription for AI analysis.</p>
+            
+            <!-- Connected Home Search Bar -->
+            <div class="search-box">
+                <input type="text" id="home-search-input" class="search-bar" placeholder="Search for tablets, syrups, first aid...">
+                <button class="btn-primary search-btn" onclick="searchFromHome()">Search</button>
+            </div>
+        </div>
+
+        <!-- Medicine Categories Grid -->
+        <div class="category-section">
+            <h2>Medicine Categories</h2>
+            <div class="category-grid">
+                
+                <!-- Category Cards: Clicking these redirects to the shop page -->
+                <div class="category-card" onclick="window.location.href='shop.html'">
+                    <div class="category-icon">💊</div>
+                    <h3>Tablets</h3>
+                </div>
+                
+                <div class="category-card" onclick="window.location.href='shop.html'">
+                    <div class="category-icon">🧴</div>
+                    <h3>Syrups</h3>
+                </div>
+                
+                <div class="category-card" onclick="window.location.href='shop.html'">
+                    <div class="category-icon">🌿</div>
+                    <h3>Vitamins</h3>
+                </div>
+                
+                <div class="category-card" onclick="window.location.href='shop.html'">
+                    <div class="category-icon">🩹</div>
+                    <h3>First Aid</h3>
+                </div>
+                
+                <div class="category-card" onclick="window.location.href='shop.html'">
+                    <div class="category-icon">🩺</div>
+                    <h3>Medical Supplies</h3>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to load the user's name and handle search forwarding -->
+    <script>
+        window.onload = function() {
+            // Pulls the exact name saved during login/signup
+            const fullName = localStorage.getItem("careConnectName");
+            
+            if (fullName) {
+                // Splits the name and grabs only the first word
+                const firstName = fullName.split(" ")[0];
+                document.getElementById("user-greeting").innerText = "Welcome, " + firstName;
+            } else {
+                document.getElementById("user-greeting").innerText = "Welcome to Care Connect";
+            }
+        };
+
+        // Function to pass home search query to shop.html via localStorage
+        function searchFromHome() {
+            let query = document.getElementById("home-search-input").value.trim();
+            if (query !== "") {
+                localStorage.setItem("careConnectSearchQuery", query);
+            }
+            window.location.href = "shop.html";
+        }
+    </script>
+
+</body>
+</html>

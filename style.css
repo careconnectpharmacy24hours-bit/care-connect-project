@@ -1,0 +1,630 @@
+/* Import a modern, clean font from Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* Base Button Styling */
+.btn-primary {
+    display: inline-block;
+    background-color: #007bff; /* Medical Blue */
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Option 1: Splash/Starting Page Styling */
+.splash-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+}
+
+.splash-container {
+    text-align: center;
+    background: white;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.splash-container h1 {
+    font-size: 36px;
+    color: #007bff;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.splash-container p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Option 1: Splash/Starting Page Styling */
+.splash-page {
+    position: relative; 
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+}
+
+/* Huge 50% Transparent Logo Background */
+.splash-bg-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This makes it stretch to fill the entire screen */
+    opacity: 0.5; /* This creates the 50% transparency */
+    z-index: 0; /* This pushes the image to the background */
+}
+
+/* Ensure the white box stays in front of the huge logo */
+.splash-container {
+    position: relative;
+    z-index: 1; 
+    text-align: center;
+    background: white;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+/* Option 2: Login and Registration Styling */
+.auth-container {
+    width: 350px;
+}
+
+.auth-container h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.auth-container .btn-primary {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.auth-links p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.auth-links a, .auth-links span {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.auth-links a:hover, .auth-links span:hover {
+    text-decoration: underline;
+}
+
+/* Hide the registration form by default */
+#register-form {
+    display: none;
+}
+
+/* Navigation Menu Styling */
+.navbar {
+    background-color: #007bff;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nav-logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #b3d7ff; /* Lighter blue on hover */
+}
+
+/* Home Page Layout */
+.home-container {
+    padding: 50px;
+    max-width: 1200px;
+    margin: 0 auto; /* Centers the content */
+}
+
+.welcome-banner {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.welcome-banner h1 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.welcome-banner p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Search Bar Area */
+.search-box {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.search-bar {
+    width: 50%;
+    padding: 12px 20px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-bar:focus {
+    border-color: #007bff;
+}
+
+.search-btn {
+    padding: 12px 25px;
+}
+
+/* Categories Grid */
+.category-section h2 {
+    color: #333;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.category-grid {
+    display: grid;
+    /* Automatically creates columns based on screen size */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+}
+
+.category-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+}
+
+.category-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.category-card h3 {
+    color: #444;
+    font-size: 18px;
+}
+
+/* Hover effect for the cards */
+.category-card:hover {
+    transform: translateY(-5px);
+    border-color: #007bff;
+    box-shadow: 0 8px 15px rgba(0,123,255,0.15);
+}
+
+/* Medicine Shop Styling */
+.shop-container {
+    padding: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.shop-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 32px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.product-icon {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    color: #222;
+    font-size: 20px;
+    margin: 0;
+}
+
+.product-card p {
+    color: #666;
+    margin: 0;
+    font-size: 14px;
+}
+
+.product-card .price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    margin: 10px 0;
+}
+
+/* Specific styling for the Apollo Pharmacy link */
+.apollo-link {
+    display: block;
+    margin-top: 10px;
+    color: #00897b; /* Apollo Pharmacy Green */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.apollo-link:hover {
+    text-decoration: underline;
+    color: #00564d;
+}
+/* Shopping Cart Styling */
+.cart-container {
+    padding: 50px;
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    margin-top: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.cart-container h2 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.cart-items-list {
+    margin-bottom: 30px;
+    min-height: 100px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 18px;
+}
+
+.item-name {
+    font-weight: 500;
+    color: #444;
+}
+
+.item-price {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.cart-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+}
+
+.cart-summary h3 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+.checkout-btn {
+    width: 250px;
+    padding: 15px;
+    font-size: 16px;
+}
+
+.btn-secondary {
+    background-color: #f8f9fa;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #dc3545;
+    color: white;
+}
+/* AI Scanner Styling */
+.scanner-container {
+    padding: 40px;
+    max-width: 700px;
+    margin: 50px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.scanner-container h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.scanner-container p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.input-section {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.input-section h3 {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+#symptoms-input {
+    width: 100%;
+    height: 100px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+#symptoms-input:focus {
+    border-color: #007bff;
+}
+
+#prescription-upload {
+    width: 100%;
+    padding: 10px;
+    border: 1px dashed #aaa;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.analyze-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.results-box {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #e3f2fd; /* Light blue background */
+    border-left: 5px solid #007bff;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.results-box h3 {
+    color: #0056b3;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+/* My Account Styling */
+.account-container {
+    padding: 40px;
+    max-width: 900px;
+    margin: 50px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.profile-header {
+    text-align: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 25px;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+.profile-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 28px;
+}
+
+.profile-header p {
+    color: #777;
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.account-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.account-card {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #eaeaea;
+}
+
+.account-card h3 {
+    margin-top: 0;
+    color: #007bff;
+    border-bottom: 2px solid #e3f2fd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.account-card p {
+    margin: 12px 0;
+    color: #555;
+    font-size: 15px;
+}
+
+.edit-btn {
+    margin-top: 15px;
+    width: auto;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.order-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.order-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 15px;
+}
+
+.order-list li:last-child {
+    border-bottom: none;
+}
+
+.order-price {
+    font-weight: bold;
+    color: #444;
+}
+
+.status-badge {
+    background: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-badge.pending {
+    background: #ffc107;
+    color: #333;
+}
+
+.logout-section {
+    text-align: center;
+    margin-top: 40px;
+    border-top: 2px solid #eee;
+    padding-top: 25px;
+}
